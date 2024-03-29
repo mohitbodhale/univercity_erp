@@ -1,4 +1,3 @@
-// File: Controller/Component/FileUploadComponent.php
 <?php
 namespace App\Controller\Component;
 
