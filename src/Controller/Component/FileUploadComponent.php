@@ -17,7 +17,5 @@ class FileUploadComponent extends Component {
             return false;
         }
     }
-}
-
-
+} 
 ?>
