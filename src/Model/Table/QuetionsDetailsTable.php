@@ -66,16 +66,16 @@ class QuetionsDetailsTable extends Table
             ->integer('quetions_id')
             ->notEmptyString('quetions_id');
 
-        $validator
-            ->scalar('answers_options_key')
-            ->maxLength('answers_options_key', 10)
-            ->requirePresence('answers_options_key', 'create')
-            ->notEmptyString('answers_options_key');
+//         $validator
+//             ->scalar('answers_options_key')
+//             ->maxLength('answers_options_key', 10)
+//             ->requirePresence('answers_options_key', 'create')
+//             ->notEmptyString('answers_options_key');
 
-        $validator
-            ->scalar('answers_options_value')
-            ->requirePresence('answers_options_value', 'create')
-            ->notEmptyString('answers_options_value');
+//         $validator
+//             ->scalar('answers_options_value')
+//             ->requirePresence('answers_options_value', 'create')
+//             ->notEmptyString('answers_options_value');
 
         return $validator;
     }

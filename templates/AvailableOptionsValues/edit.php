@@ -1,13 +1,13 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Quetion $quetion
+ * @var \App\Model\Entity\AvailableOptionsValue $availableOptionsValue
  */
 ?>
 <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Quetion
+      Available Options Value
       <small><?php echo __('Edit'); ?></small>
     </h1>
     <ol class="breadcrumb">
@@ -26,11 +26,10 @@
           </div>
           <!-- /.box-header -->
           <!-- form start -->
-          <?php echo $this->Form->create($quetion, ['role' => 'form']); ?>
+          <?php echo $this->Form->create($availableOptionsValue, ['role' => 'form']); ?>
             <div class="box-body">
               <?php
-                echo $this->Form->control('tittle');
-                echo $this->Form->control('status', ['type' => 'checkbox','default'=>$quetion['status'],'required'=>false]);
+                echo $this->Form->control('description');
               ?>
             </div>
             <!-- /.box-body -->

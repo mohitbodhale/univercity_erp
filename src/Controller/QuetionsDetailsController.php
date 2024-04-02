@@ -17,13 +17,38 @@ class QuetionsDetailsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function index()
-    {
+    { 
         $this->paginate = [
             'contain' => ['Quetions'],
         ];
         $quetionsDetails = $this->paginate($this->QuetionsDetails);
-
-        $this->set(compact('quetionsDetails'));
+        $this->loadModel('Quetions');
+        $this->loadModel('AvailableOptionsValues');
+        $quetion = $this->Quetions->find('all',['contain' => ['QuetionsDetails']] );
+        $available_options_list = $this->AvailableOptionsValues->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'description'
+        ])->toArray();
+        
+        if ($this->request->is(['post'])) {
+            
+            $savedata = $this->request->getData();
+            foreach($savedata as $savedatak=>$savedatav){
+                foreach($savedatav as $savedatavr=>$savedatavr_v){
+                    foreach($savedatavr_v as $savedatavr_kmul=>$savedatavr_vmul){
+                        if(isset($savedatavr_vmul['id'])){
+                            $this->edit($savedatavr_vmul['id'],$savedatavr_vmul);
+                        }else{
+                            $this->add($savedatavr_vmul);
+                        }
+                    }
+                }
+                
+            }
+            debug($result);
+        }
+        
+        $this->set(compact(['quetionsDetails','quetion','available_options_list']));
     }
 
     /**
@@ -48,14 +73,16 @@ class QuetionsDetailsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($savedatavr_vmul = null)
     {
         $quetionsDetail = $this->QuetionsDetails->newEmptyEntity();
         if ($this->request->is('post')) {
-            $quetionsDetail = $this->QuetionsDetails->patchEntity($quetionsDetail, $this->request->getData());
+            if($savedatavr_vmul){$savedatavr_vmul=$savedatavr_vmul;}else{$savedatavr_vmul=$this->request->getData();};
+            $quetionsDetail = $this->QuetionsDetails->patchEntity($quetionsDetail, $savedatavr_vmul);
             if ($this->QuetionsDetails->save($quetionsDetail)) {
+                if(!$savedata){
                 $this->Flash->success(__('The {0} has been saved.', 'Quetions Detail'));
-
+                }
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Quetions Detail'));
@@ -72,19 +99,22 @@ class QuetionsDetailsController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($id = null,$savedata= null)
     {
         $quetionsDetail = $this->QuetionsDetails->get($id, [
             'contain' => []
         ]);
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $quetionsDetail = $this->QuetionsDetails->patchEntity($quetionsDetail, $this->request->getData());
+            if($savedata){$savedata=$savedata;}else{$savedata= $this->request->getData();}
+            
+            $quetionsDetail = $this->QuetionsDetails->patchEntity($quetionsDetail, $savedata);
             if ($this->QuetionsDetails->save($quetionsDetail)) {
-                $this->Flash->success(__('The {0} has been saved.', 'Quetions Detail'));
-
-                return $this->redirect(['action' => 'index']);
+                if(!$savedata){
+                    $this->Flash->success(__('The {0} has been saved.', 'Quetions Detail'));
+                }
             }
-            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Quetions Detail'));
+            //$this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Quetions Detail'));
         }
         $quetions = $this->QuetionsDetails->Quetions->find('list', ['limit' => 200]);
         $this->set(compact('quetionsDetail', 'quetions'));

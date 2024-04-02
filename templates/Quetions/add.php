@@ -30,7 +30,7 @@
             <div class="box-body">
               <?php
                 echo $this->Form->control('tittle');
-                echo $this->Form->control('status');
+                echo $this->Form->control('status', ['type' => 'checkbox','default'=>1,'required'=>false]); 
               ?>
             </div>
             <!-- /.box-body -->

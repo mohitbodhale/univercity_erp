@@ -40,6 +40,11 @@ class QuetionsTable extends Table
         $this->setTable('quetions');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+        
+        $this->hasMany('QuetionsDetails', [
+            'foreignKey' => 'quetions_id',
+            'joinType' => 'INNER',
+        ]);
     
     }
 
@@ -51,15 +56,15 @@ class QuetionsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->scalar('tittle')
-            ->requirePresence('tittle', 'create')
-            ->notEmptyString('tittle');
+//         $validator
+//             ->scalar('tittle')
+//             ->requirePresence('tittle', 'create')
+//             ->notEmptyString('tittle');
 
-        $validator
-            ->integer('status')
-            ->requirePresence('status', 'create')
-            ->notEmptyString('status');
+//         $validator
+//             ->integer('status')
+//             ->requirePresence('status', 'create')
+//             ->notEmptyString('status');
 
         return $validator;
     }

@@ -6,18 +6,12 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * QuetionsDetail Entity
+ * AvailableOptionsValue Entity
  *
  * @property int $id
- * @property int $quetions_id
- * @property string $answers_options_key
- * @property string $answers_options_value
- * @property \Cake\I18n\FrozenTime $created
- * @property \Cake\I18n\FrozenTime $modified
- *
- * @property \App\Model\Entity\Quetion $quetion
+ * @property string $description
  */
-class QuetionsDetail extends Entity
+class AvailableOptionsValue extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -29,11 +23,6 @@ class QuetionsDetail extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'quetions_id' => true,
-        'answers_options_key' => true,
-        'available_options_values_id' => true,
-        'created' => true,
-        'modified' => true,
-        'quetion' => true,
+        'description' => true,
     ];
 }
