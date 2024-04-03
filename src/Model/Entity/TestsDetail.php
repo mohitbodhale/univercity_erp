@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $quetions_id
  * @property int $tests_id
- * @property int $answers_id
+ * @property int $available_options_values_id
  *
  * @property \App\Model\Entity\Quetion $quetion
  * @property \App\Model\Entity\Test $test
@@ -31,8 +31,8 @@ class TestsDetail extends Entity
     protected $_accessible = [
         'quetions_id' => true,
         'tests_id' => true,
-        'answers_id' => true,
-        //'quetion' => true,
+        'available_options_values_id' => true,
+        'quetion' => true,
         'test' => true,
         'answer' => true,
     ];

@@ -11,11 +11,11 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $test_name
  * @property int $slots_id
- * @property int $quizs_details_id
  * @property int $status
+ * @property int $quizs_id
  *
  * @property \App\Model\Entity\Slot $slot
- * @property \App\Model\Entity\QuizsDetail $quizs_detail
+ * @property \App\Model\Entity\Quiz $quiz
  */
 class Test extends Entity
 {
@@ -31,9 +31,9 @@ class Test extends Entity
     protected $_accessible = [
         'test_name' => true,
         'slots_id' => true,
-        'quizs_details_id' => true,
         'status' => true,
+        'quizs_id' => true,
         'slot' => true,
-        'quizs_detail' => true,
+        'quiz' => true,
     ];
 }

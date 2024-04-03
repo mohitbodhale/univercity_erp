@@ -31,8 +31,8 @@
               <?php
                 echo $this->Form->control('test_name');
                 echo $this->Form->control('slots_id', ['options' => $slots]);
-                echo $this->Form->control('quizs_details_id', ['options' => $quizsDetails]);
                 echo $this->Form->control('status');
+                echo $this->Form->control('quizs_id', ['options' => $quizs]);
               ?>
             </div>
             <!-- /.box-body -->

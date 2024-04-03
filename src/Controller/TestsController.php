@@ -19,7 +19,7 @@ class TestsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Slots', 'QuizsDetails'],
+            'contain' => ['Slots','Quizs'],
         ];
         $tests = $this->paginate($this->Tests);
 
@@ -36,7 +36,7 @@ class TestsController extends AppController
     public function view($id = null)
     {
         $test = $this->Tests->get($id, [
-            'contain' => ['Slots', 'QuizsDetails'],
+            'contain' => ['Slots','Quizs'],
         ]);
 
         $this->set(compact('test'));
@@ -62,7 +62,7 @@ class TestsController extends AppController
         }
         $slots = $this->Tests->Slots->find('list', ['limit' => 200]);
         $quizsDetails = $this->Tests->QuizsDetails->find('list', ['limit' => 200]);
-        $this->set(compact('test', 'slots', 'quizsDetails'));
+        $this->set(compact('test', 'slots', 'quizs'));
     }
 
 
@@ -89,7 +89,7 @@ class TestsController extends AppController
         }
         $slots = $this->Tests->Slots->find('list', ['limit' => 200]);
         $quizsDetails = $this->Tests->QuizsDetails->find('list', ['limit' => 200]);
-        $this->set(compact('test', 'slots', 'quizsDetails'));
+        $this->set(compact('test', 'slots', 'quizs'));
     }
 
 
@@ -116,50 +116,54 @@ class TestsController extends AppController
     public function start($id = null){
         $test = $this->Tests->get($id, [
             'contain' => [
-                'TestsDetails'=>[
-                    'Quetions'],
-                //'QuizsDetails'
+                'TestsDetails'=>['Quetions'=>['QuetionsDetails'=>['AvailableOptionsValues']]],
             ],
         ]);
-        
-        $this->loadModel('QuetionsDetails');
-        foreach($test['tests_details'] as $ktd=>$vtd){ 
-            $quetionsDetails = $this->QuetionsDetails->find('list',[
-                'keyField'=>'id','valueField'=>'answers_options_value'
-            ])->where(['QuetionsDetails.quetions_id'=>$vtd->quetions_id])->toArray();
-            //debug($quetionsDetails);
-            $test['tests_details'][$ktd]['options_value'] = $quetionsDetails;
-        }
-
-        $this->set(compact('test','quetionsDetails'));
+        $this->set(compact('test'));
     }
 
     public function endTest($id = null){
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user_answers = $this->request->getData();
-        }    
-    
-        $this->loadModel('Answers');
-        $answers = $this->Answers->find('list', [
-            'keyField' => 'quetions_id', // The field to use as keys
-            'valueField' => 'quetions_details_id', // The field to use as values
+        $test = $this->Tests->get($id, [
+            'contain' => [
+                'Quizs',
+                'TestsDetails',
+            ],
         ])->toArray();
 
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user_answers = $this->request->getData();
+            //debug($user_answers);
+        }    
+        $this->loadModel('TestsDetails');
+        $answers = $this->TestsDetails->find('list', [
+            'keyField' => 'quetions_id', // The field to use as keys
+            'valueField' => 'available_options_values_id', // The field to use as values
+        ])->toArray();
+        //debug($answers);    
+        //die;
         // $commonKeys will contain the common keys between the 'answers' and 'user_answers' arrays
         $commonKeys = array_intersect_key($answers, $user_answers);
         //print_r($commonKeys);
         $comparisons = [];
+        $countNotAttempt = $countAttempt = 0;
         foreach ($commonKeys as $key => $value) {
-            if ($answers[$key] ===  $user_answers[$key]['selected']) {
-                // Values match for the current key
-                $comparisons[$key] = 1;
-            } else {
-                // Values don't match for the current key
-                $comparisons[$key] = 0;
+            if (empty($user_answers[$key]['selected'])) {
+                $countNotAttempt++;
+            }else{
+                $countAttempt++;
+                if ($answers[$key] ===  (int)$user_answers[$key]['selected']) {
+                    // Values match for the current key
+                    $comparisons[$key] = 1;
+                }else {
+                    // Values don't match for the current key
+                    $comparisons[$key] = 0;
+                }
             }
         }
-
-        $this->set(compact('answers','user_answers','comparisons'));
+        $comparisons['countNotAttempt'] = $countNotAttempt;
+        $comparisons['countAttempt'] = $countAttempt;
+        
+        $this->set(compact('answers','user_answers','comparisons','test'));
     }
 
 }

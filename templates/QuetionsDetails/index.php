@@ -117,6 +117,7 @@ use PhpParser\Node\Stmt\Label;
           <?php echo $this->Form->submit(__('Submit')); ?>
           <?php echo $this->Form->end(); ?>
         </div>
+        
         <!-- /.box-body -->
       </div>
       <!-- /.box -->

@@ -31,7 +31,7 @@
               <?php
                 echo $this->Form->control('quetions_id', ['options' => $quetions]);
                 echo $this->Form->control('tests_id', ['options' => $tests]);
-                echo $this->Form->control('answers_id', ['options' => $answers]);
+                echo $this->Form->control('available_options_values_id', ['options' => $available_options_list]);
               ?>
             </div>
             <!-- /.box-body -->

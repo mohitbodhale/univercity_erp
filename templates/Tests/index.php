@@ -35,7 +35,7 @@
                   <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('test_name') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('slots_id') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('quizs_details_id') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('quizs_id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('status') ?></th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
               </tr>
@@ -46,7 +46,7 @@
                   <td><?= $this->Number->format($test->id) ?></td>
                   <td><?= h($test->test_name) ?></td>
                   <td><?= h($test->slot->slots_name) ?></td>
-                  <td><?= $this->Number->format($test->quizs_details_id) ?></td>
+                  <td><?= h($test->quiz->quiz_name) ?></td>
                   <td><?= $this->Number->format($test->status) ?></td>
                   <td class="actions text-right">
                       <?= $this->Html->link(__('View'), ['action' => 'view', $test->id], ['class'=>'btn btn-info btn-xs']) ?>

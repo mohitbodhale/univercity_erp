@@ -22,7 +22,7 @@ class TestsDetailsFixture extends TestFixture
                 'id' => 1,
                 'quetions_id' => 1,
                 'tests_id' => 1,
-                'answers_id' => 1,
+                'available_options_values_id' => 1,
             ],
         ];
         parent::init();

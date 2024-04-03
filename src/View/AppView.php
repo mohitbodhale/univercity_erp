@@ -38,5 +38,6 @@ class AppView extends View
     public function initialize(): void
     {
         $this->loadHelper('Form', ['className' => 'AdminLTE.Form']);
+        //$this->loadHelper('Paginator', ['templates' => 'paginator-templates']);
     }
 }

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+
 /**
  * Quizs Controller
  *
@@ -15,12 +16,10 @@ class QuizsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-
     public function index()
     {
         $this->paginate = [
             'contain' => ['Departments'],
-            'conditions' => $this->statusCondition, // Apply the status condition here
         ];
         $quizs = $this->paginate($this->Quizs);
 

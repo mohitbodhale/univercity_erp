@@ -24,8 +24,8 @@
             <dd><?= h($test->test_name) ?></dd>
             <dt scope="row"><?= __('Slot') ?></dt>
             <dd><?= $test->has('slot') ? $this->Html->link($test->slot->id, ['controller' => 'Slots', 'action' => 'view', $test->slot->id]) : '' ?></dd>
-            <dt scope="row"><?= __('Quizs Detail') ?></dt>
-            <dd><?= $test->has('quizs_detail') ? $this->Html->link($test->quizs_detail->id, ['controller' => 'QuizsDetails', 'action' => 'view', $test->quizs_detail->id]) : '' ?></dd>
+            <dt scope="row"><?= __('Quiz') ?></dt>
+            <dd><?= $test->has('quiz') ? $this->Html->link($test->quiz->id, ['controller' => 'Quizs', 'action' => 'view', $test->quiz->id]) : '' ?></dd>
             <dt scope="row"><?= __('Id') ?></dt>
             <dd><?= $this->Number->format($test->id) ?></dd>
             <dt scope="row"><?= __('Status') ?></dt>

@@ -22,8 +22,8 @@ class TestsFixture extends TestFixture
                 'id' => 1,
                 'test_name' => 'Lorem ipsum dolor sit amet',
                 'slots_id' => 1,
-                'quizs_details_id' => 1,
                 'status' => 1,
+                'quizs_id' => 1,
             ],
         ];
         parent::init();

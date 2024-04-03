@@ -45,7 +45,7 @@
                   <td><?= $this->Number->format($quiz->id) ?></td>
                   <td><?= h($quiz->quiz_name) ?></td>
                   <td><?= $this->Number->format($quiz->status) ?></td>
-                  <td><?= h($quiz->department->department_name) ?></td>
+                  <td><?= $this->Number->format($quiz->departments_id) ?></td>
                   <td class="actions text-right">
                       <?= $this->Html->link(__('View'), ['action' => 'view', $quiz->id], ['class'=>'btn btn-info btn-xs']) ?>
                       <?= $this->Html->link(__('Edit'), ['action' => 'edit', $quiz->id], ['class'=>'btn btn-warning btn-xs']) ?>

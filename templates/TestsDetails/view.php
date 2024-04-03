@@ -24,10 +24,10 @@
             <dd><?= $testsDetail->has('quetion') ? $this->Html->link($testsDetail->quetion->id, ['controller' => 'Quetions', 'action' => 'view', $testsDetail->quetion->id]) : '' ?></dd>
             <dt scope="row"><?= __('Test') ?></dt>
             <dd><?= $testsDetail->has('test') ? $this->Html->link($testsDetail->test->id, ['controller' => 'Tests', 'action' => 'view', $testsDetail->test->id]) : '' ?></dd>
-            <dt scope="row"><?= __('Answer') ?></dt>
-            <dd><?= $testsDetail->has('answer') ? $this->Html->link($testsDetail->answer->id, ['controller' => 'Answers', 'action' => 'view', $testsDetail->answer->id]) : '' ?></dd>
             <dt scope="row"><?= __('Id') ?></dt>
             <dd><?= $this->Number->format($testsDetail->id) ?></dd>
+            <dt scope="row"><?= __('Available Options Values Id') ?></dt>
+            <dd><?= $this->Number->format($testsDetail->available_options_values_id) ?></dd>
           </dl>
         </div>
       </div>

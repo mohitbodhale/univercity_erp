@@ -19,8 +19,7 @@ class TestsDetailsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Quetions', 'Tests',
-            // 'Answers'
+            'contain' => [//'Quetions', 'Tests', 'Answers'
             ],
         ];
         $testsDetails = $this->paginate($this->TestsDetails);
@@ -38,7 +37,9 @@ class TestsDetailsController extends AppController
     public function view($id = null)
     {
         $testsDetail = $this->TestsDetails->get($id, [
-            'contain' => ['Quetions', 'Tests', 'Answers'],
+            'contain' => [
+                //'Quetions', 'Tests', 'Answers'
+                ],
         ]);
 
         $this->set(compact('testsDetail'));
@@ -62,10 +63,15 @@ class TestsDetailsController extends AppController
             }
             $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Tests Detail'));
         }
-        $quetions = $this->TestsDetails->Quetions->find('list', ['limit' => 200]);
+        $quetions = $this->TestsDetails->Quetions->find('list', ['keyField' => 'id',
+            'valueField' => 'tittle','limit' => 200]);
         $tests = $this->TestsDetails->Tests->find('list', ['limit' => 200]);
-        $answers = $this->TestsDetails->Answers->find('list', ['limit' => 200]);
-        $this->set(compact('testsDetail', 'quetions', 'tests', 'answers'));
+        $this->loadModel('AvailableOptionsValues');
+        $available_options_list = $this->AvailableOptionsValues->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'description'
+        ])->toArray();
+        $this->set(compact('testsDetail', 'quetions', 'tests', 'available_options_list'));
     }
 
 

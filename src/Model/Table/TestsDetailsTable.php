@@ -13,7 +13,6 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\QuetionsTable&\Cake\ORM\Association\BelongsTo $Quetions
  * @property \App\Model\Table\TestsTable&\Cake\ORM\Association\BelongsTo $Tests
- * @property \App\Model\Table\AnswersTable&\Cake\ORM\Association\BelongsTo $Answers
  *
  * @method \App\Model\Entity\TestsDetail newEmptyEntity()
  * @method \App\Model\Entity\TestsDetail newEntity(array $data, array $options = [])
@@ -53,11 +52,10 @@ class TestsDetailsTable extends Table
             'foreignKey' => 'tests_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Answers', [
-            'foreignKey' => 'answers_id',
+        $this->belongsTo('AvailableOptionsValues', [
+            'foreignKey' => 'available_options_values_id',
             'joinType' => 'INNER',
         ]);
-        
     }
 
     /**
@@ -77,8 +75,8 @@ class TestsDetailsTable extends Table
             ->notEmptyString('tests_id');
 
         $validator
-            ->integer('answers_id')
-            ->notEmptyString('answers_id');
+            ->integer('available_options_values_id')
+            ->notEmptyString('available_options_values_id');
 
         return $validator;
     }
@@ -94,7 +92,7 @@ class TestsDetailsTable extends Table
     {
         $rules->add($rules->existsIn('quetions_id', 'Quetions'), ['errorField' => 'quetions_id']);
         $rules->add($rules->existsIn('tests_id', 'Tests'), ['errorField' => 'tests_id']);
-        $rules->add($rules->existsIn('answers_id', 'Answers'), ['errorField' => 'answers_id']);
+        $rules->add($rules->existsIn('available_options_values_id', 'AvailableOptionsValues'), ['errorField' => 'available_options_values_id']);
 
         return $rules;
     }

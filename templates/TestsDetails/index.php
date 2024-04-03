@@ -35,17 +35,17 @@
                   <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('quetions_id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('tests_id') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('answers_id') ?></th>
-                  <th scope="col" class="actions text-center" style="min-width: 150px;"><?= __('Actions') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('available_options_values_id') ?></th>
+                  <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
               </tr>
             </thead>
             <tbody>
               <?php foreach ($testsDetails as $testsDetail): ?>
                 <tr>
                   <td><?= $this->Number->format($testsDetail->id) ?></td>
-                  <td><?= h($testsDetail->quetion->tittle) ?></td>
-                  <td><?= h($testsDetail->test->test_name) ?></td>
-                  <td><?= $this->Number->format($testsDetail->answers_id) ?></td>
+                  <td><?= $this->Number->format($testsDetail->quetions_id) ?></td>
+                  <td><?= $this->Number->format($testsDetail->tests_id) ?></td>
+                  <td><?= $this->Number->format($testsDetail->available_options_values_id) ?></td>
                   <td class="actions text-right">
                       <?= $this->Html->link(__('View'), ['action' => 'view', $testsDetail->id], ['class'=>'btn btn-info btn-xs']) ?>
                       <?= $this->Html->link(__('Edit'), ['action' => 'edit', $testsDetail->id], ['class'=>'btn btn-warning btn-xs']) ?>

@@ -57,7 +57,6 @@ class QuizsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        /*
         $validator
             ->scalar('quiz_name')
             ->maxLength('quiz_name', 255)
@@ -72,7 +71,7 @@ class QuizsTable extends Table
         $validator
             ->integer('departments_id')
             ->notEmptyString('departments_id');
-        */
+
         return $validator;
     }
 
@@ -85,7 +84,7 @@ class QuizsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        //$rules->add($rules->existsIn('departments_id', 'Departments'), ['errorField' => 'departments_id']);
+        $rules->add($rules->existsIn('departments_id', 'Departments'), ['errorField' => 'departments_id']);
 
         return $rules;
     }

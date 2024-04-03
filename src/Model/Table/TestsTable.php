@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * Tests Model
  *
  * @property \App\Model\Table\SlotsTable&\Cake\ORM\Association\BelongsTo $Slots
- * @property \App\Model\Table\QuizsDetailsTable&\Cake\ORM\Association\BelongsTo $QuizsDetails
+ * @property \App\Model\Table\QuizsTable&\Cake\ORM\Association\BelongsTo $Quizs
  *
  * @method \App\Model\Entity\Test newEmptyEntity()
  * @method \App\Model\Entity\Test newEntity(array $data, array $options = [])
@@ -48,8 +48,8 @@ class TestsTable extends Table
             'foreignKey' => 'slots_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('QuizsDetails', [
-            'foreignKey' => 'quizs_details_id',
+        $this->belongsTo('Quizs', [
+            'foreignKey' => 'quizs_id',
             'joinType' => 'INNER',
         ]);
         $this->hasMany('TestsDetails', [
@@ -66,24 +66,24 @@ class TestsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        // $validator
-        //     ->scalar('test_name')
-        //     ->maxLength('test_name', 255)
-        //     ->requirePresence('test_name', 'create')
-        //     ->notEmptyString('test_name');
+        $validator
+            ->scalar('test_name')
+            ->maxLength('test_name', 255)
+            ->requirePresence('test_name', 'create')
+            ->notEmptyString('test_name');
 
-        // $validator
-        //     ->integer('slots_id')
-        //     ->notEmptyString('slots_id');
+        $validator
+            ->integer('slots_id')
+            ->notEmptyString('slots_id');
 
-        // $validator
-        //     ->integer('quizs_details_id')
-        //     ->notEmptyString('quizs_details_id');
+        $validator
+            ->integer('status')
+            ->requirePresence('status', 'create')
+            ->notEmptyString('status');
 
-        // $validator
-        //     ->integer('status')
-        //     ->requirePresence('status', 'create')
-        //     ->notEmptyString('status');
+        $validator
+            ->integer('quizs_id')
+            ->notEmptyString('quizs_id');
 
         return $validator;
     }
@@ -98,7 +98,7 @@ class TestsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn('slots_id', 'Slots'), ['errorField' => 'slots_id']);
-        $rules->add($rules->existsIn('quizs_details_id', 'QuizsDetails'), ['errorField' => 'quizs_details_id']);
+        $rules->add($rules->existsIn('quizs_id', 'Quizs'), ['errorField' => 'quizs_id']);
 
         return $rules;
     }

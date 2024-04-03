@@ -52,6 +52,14 @@ class QuetionsDetailsTable extends Table
             'joinType' => 'INNER',
         ]);
         
+        // Define the association with AvailableOptionsValues
+        $this->belongsTo('AvailableOptionsValues', [
+            //'className' => 'AvailableOptionsValues', // Name of the related model class
+            'foreignKey' => 'available_options_values_id', // Foreign key in this table
+            'joinType' => 'INNER',
+            // Other options as needed
+        ]);
+        
     }
 
     /**

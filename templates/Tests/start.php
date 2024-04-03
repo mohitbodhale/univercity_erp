@@ -47,10 +47,10 @@
             <?= $this->Form->create(null, ['url' => ['controller' => 'Tests', 'action' => 'end_test',$test->id],'type'=>'POST']); ?>
                   
             <?php 
-              //debug($test->id);
-              $t_cnt = count($test->tests_details);
+              //debug(count($test->tests_details));
+              $t_cnt = count($test->tests_details);  
               $cnt = 1;
-              foreach ($test->tests_details as $test): 
+              foreach ($test->tests_details as $test):
                 ?>
                 <tr class="">
                   <td class="" style="color:white;background-color:#222d32"><?php echo $cnt;?></td>  
@@ -67,10 +67,15 @@
                   <td></td>
                   <td class="col-md-6" colspan="2">
                     <?php
-                        //debug($test->options_value);
-                        echo $this->Form->radio($test->quetions_id.'['."selected".']', $test->options_value, [
-                            'legend' => 'Choose an option', // Optional legend
-                        ]);
+                        $available_options_value_desc = array();
+                        foreach($test->quetion->quetions_details as $quetions_details_k=>$quetions_details_v){
+                          //debug($quetions_details_v->available_options_values_id);
+                          $available_options_value_desc[$quetions_details_v->available_options_values_id] = $quetions_details_v->available_options_value->description;
+                        }
+                        echo $this->Form->radio($quetions_details_v->quetions_id.'['."selected".']', 
+                            $available_options_value_desc, 
+                          ['legend' => 'Choose an option']
+                        );
                     ?>
                   </td>
                   

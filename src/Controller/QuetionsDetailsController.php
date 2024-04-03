@@ -43,11 +43,9 @@ class QuetionsDetailsController extends AppController
                         }
                     }
                 }
-                
             }
-            debug($result);
+            // debug($result);
         }
-        
         $this->set(compact(['quetionsDetails','quetion','available_options_list']));
     }
 

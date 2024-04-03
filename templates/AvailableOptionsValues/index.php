@@ -50,7 +50,15 @@
                 </tr>
               <?php endforeach; ?>
             </tbody>
+            
           </table>
+          <div style="float: right;">
+            <ul class="pagination">
+                <li><?= $this->Paginator->prev('« Previous') ?></li>
+                <li><?= $this->Paginator->numbers() ?></li>
+                <li><?= $this->Paginator->next('Next »') ?></li>
+            </ul>
+          </div>  
         </div>
         <!-- /.box-body -->
       </div>
