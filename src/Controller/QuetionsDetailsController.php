@@ -31,7 +31,6 @@ class QuetionsDetailsController extends AppController
         ])->toArray();
         
         if ($this->request->is(['post'])) {
-            
             $savedata = $this->request->getData();
             foreach($savedata as $savedatak=>$savedatav){
                 foreach($savedatav as $savedatavr=>$savedatavr_v){
@@ -44,7 +43,6 @@ class QuetionsDetailsController extends AppController
                     }
                 }
             }
-            // debug($result);
         }
         $this->set(compact(['quetionsDetails','quetion','available_options_list']));
     }
@@ -73,10 +71,17 @@ class QuetionsDetailsController extends AppController
      */
     public function add($savedatavr_vmul = null)
     {
+        //debug($this->request->getData());
         $quetionsDetail = $this->QuetionsDetails->newEmptyEntity();
         if ($this->request->is('post')) {
-            if($savedatavr_vmul){$savedatavr_vmul=$savedatavr_vmul;}else{$savedatavr_vmul=$this->request->getData();};
+            if($savedatavr_vmul){
+                $savedatavr_vmul=$savedatavr_vmul;
+            }
+            else{
+                $savedatavr_vmul=$this->request->getData();
+            }
             $quetionsDetail = $this->QuetionsDetails->patchEntity($quetionsDetail, $savedatavr_vmul);
+            //debug($savedatavr_vmul);die;
             if ($this->QuetionsDetails->save($quetionsDetail)) {
                 if(!$savedata){
                 $this->Flash->success(__('The {0} has been saved.', 'Quetions Detail'));

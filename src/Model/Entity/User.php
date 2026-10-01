@@ -9,7 +9,9 @@ use Cake\ORM\Entity;
  * User Entity
  *
  * @property int $id
- * @property string $username
+ * @property string|null $username
+ * @property string $email
+ * @property string $password
  */
 class User extends Entity
 {
@@ -24,5 +26,23 @@ class User extends Entity
      */
     protected $_accessible = [
         'username' => true,
+        'email' => true,
+        'password' => true,
     ];
+
+    /**
+     * Fields that are excluded from JSON versions of the entity.
+     *
+     * @var array<string>
+     */
+    protected $_hidden = [
+        'password',
+    ];
+
+    protected function _setPassword(string $plainPassword)
+{
+    $hasher = new DefaultPasswordHasher();
+
+    return $hasher->hash($plainPassword);
+}
 }

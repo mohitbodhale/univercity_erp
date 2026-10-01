@@ -43,13 +43,15 @@ class AppController extends Controller
         parent::initialize();
 
         $this->loadComponent('RequestHandler');
-        $this->loadComponent('Flash');
+        //$this->loadComponent('Flash');
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+
+        //$this->loadComponent('Authentication.Authentication');
     }
 
     public function beforeRender(EventInterface  $event)
@@ -59,19 +61,27 @@ class AppController extends Controller
 
     public function beforeFilter(EventInterface $event)
     {
-        parent::beforeFilter($event);
+        //$this->Authentication->allowUnauthenticated(['login']);
+        //parent::beforeFilter($event);
         
         // Set a variable with the "Hi" message
-        $hiMessage = "Hi, welcome to our CakePHP application!";
+        //$hiMessage = "Hi, welcome to our CakePHP application!";
         // echo $hiMessage;//$this->set('hiMessage', $hiMessage);
         
         // Get the current controller name
-        $controllerName = $this->getName();
+        //$controllerName = $this->getName();
         // Transform the controller name to a model name
-        $modelName = \Cake\Utility\Inflector::singularize($controllerName);
+        //$modelName = \Cake\Utility\Inflector::singularize($controllerName);
         //echo $modelName;
         
-        $this->statusCondition = ['status' => 1];
+        //$this->statusCondition = ['status' => 1];
         // debug($data);
     }
+
+    // public function beforeFilter(EventInterface $event)
+    // {
+        
+
+    //     parent::beforeFilter($event);
+    // }
 }

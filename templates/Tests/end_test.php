@@ -37,7 +37,9 @@
                     <tr>
                       <th colspan="2" background='https://picsum.photos/200/300?alejandroescamilla-book.jpg' style="background-size: cover;background-attachment: fixed;">
                         <center>
-                        <p class="h4 text-light"><b><?php echo ucwords($test['quiz']['quiz_name'])." : ".ucwords($test['test_name']); ?></b></p>
+                        <p class="h4 text-light"><b style="color: black;">
+                        <?php echo ucwords($test['quiz']['quiz_name'])." : ".ucwords($test['test_name']); ?>
+                        </b></p>
                         </center>
                       </th>
                     </tr>
@@ -54,8 +56,17 @@
                         <td><?php echo $comparisons['countNotAttempt']; ?></td>
                     </tr>
                     <tr>
-                        <th scope="col">Total Score</th>
-                        <td><?php echo $count; ?></td>
+                        <th scope="col">Total Right Score</th>
+                        <td><?php echo count($comparisons['countMatch']);  ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Total Wrong Score</th>
+                        <td>
+                          <?php 
+                          if(isset($comparisons['countNotMatch'])){echo count($comparisons['countNotMatch']); }
+                          else{ echo "ok"; }
+                          ?>
+                        </td>
                     </tr>
                 </tbody>
             </table>

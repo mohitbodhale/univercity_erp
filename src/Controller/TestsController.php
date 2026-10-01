@@ -153,10 +153,10 @@ class TestsController extends AppController
                 $countAttempt++;
                 if ($answers[$key] ===  (int)$user_answers[$key]['selected']) {
                     // Values match for the current key
-                    $comparisons[$key] = 1;
+                    $comparisons['countMatch'][$key] = 1;
                 }else {
                     // Values don't match for the current key
-                    $comparisons[$key] = 0;
+                    $comparisons['countNotMatch'][$key] = 0;
                 }
             }
         }

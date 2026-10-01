@@ -28,13 +28,33 @@ use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 
+use Authentication\AuthenticationServiceInterface;
+use Authentication\AuthenticationServiceProviderInterface;
+use Authentication\Middleware\AuthenticationMiddleware;
+//use Cake\Core\Configure;
+use Cake\Core\Exception\MissingPluginException;
+//use Cake\Error\Middleware\ErrorHandlerMiddleware;
+//use Cake\Http\BaseApplication;
+//use Cake\Http\Middleware\BodyParserMiddleware;
+//use Cake\Http\Middleware\CsrfProtectionMiddleware;
+//use Cake\Http\MiddlewareQueue;
+//use Cake\Routing\Middleware\AssetMiddleware;
+//use Cake\Routing\Middleware\RoutingMiddleware;
+use Psr\Http\Message\ServerRequestInterface;
+use Authentication\AuthenticationService;
+use Authentication\Identifier\IdentifierInterface;
+
+//namespace App\Controller;
+use Cake\Routing\Router;
+
 /**
+ * 
  * Application setup class.
  *
  * This defines the bootstrapping logic and middleware layers you
  * want to use in your application.
  */
-class Application extends BaseApplication
+class Application extends BaseApplication implements AuthenticationServiceProviderInterface
 {
     /**
      * Load all the application configuration and bootstrap logic.
@@ -64,6 +84,9 @@ class Application extends BaseApplication
 
         // Load more plugins here
         $this->addPlugin('AdminLTE');
+
+        // Load more plugins here
+        $this->addPlugin('Authentication');
     }
 
     /**
@@ -102,7 +125,10 @@ class Application extends BaseApplication
             ->add(new CsrfProtectionMiddleware([
                 'httponly' => true,
             ]));
-
+        
+            //$middlewareQueue
+            // Authentication Middleware
+           // ->add(new AuthenticationMiddleware($this));
         return $middlewareQueue;
     }
 
@@ -132,5 +158,36 @@ class Application extends BaseApplication
         $this->addPlugin('Migrations');
 
         // Load more plugins here
+    }
+
+    public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
+    {
+        // TODO: Implement getAuthenticationService() method.
+        // Create AuthenticationService
+        //$service = new AuthenticationService();
+
+        // Define where users should be redirected to when they are not authenticated
+        $service->setConfig([
+            //'unauthenticatedRedirect' => Router::url(['controller' => 'Users', 'action' => 'register']),
+            //'queryParam' => 'redirect',
+        ]);
+
+        // Fields in your db to match against
+        $fields = [
+            IdentifierInterface::CREDENTIAL_USERNAME => 'email',
+            IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
+        ];
+
+        // Load the authenticators. Session should be first.
+        //$service->loadAuthenticator('Authentication.Session');
+        // $service->loadAuthenticator('Authentication.Form', [
+        //     'fields' => $fields,
+        //     'loginUrl' => Router::url(['controller' => 'Users', 'action' => 'login'])
+        // ]);
+
+        // Load identifiers
+        // $service->loadIdentifier('Authentication.Password', compact('fields'));
+
+        // return $service;
     }
 }
